@@ -1,4 +1,61 @@
 package com.neppplus.colosseum_20210807.utils
 
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+
 class ServerUtil {
+
+    companion object {
+
+//        어떤 서버로 접속하는지 호스트 주소는 모두 동일함.
+//        애초에 변수로 저장해두자.
+
+        val HOST_URL = "http://54.180.52.26"
+
+//        기능별로 함수들 생성. (ex. 로그인용 함수, 회원가입용 함수 등등..)
+//        함수 마다 => 기능별 주소는 달라질 수 있다.
+//        기능별로 메쏘드의 종류까지 같이 고려해서 함수를 만들자.
+
+
+//        로그인 수행 함수.
+
+        fun postRequestLogin( id : String, pw : String ) {
+
+//            1. 어디로 가야하는가? (주소? => 호스트주소/기능주소)
+
+            val urlString = "${HOST_URL}/user"
+
+//            2. 어떤 방식으로 가는가(메쏘드)? POST  (PUT or PATCH)
+//             => 서버에 전달해줄 데이터를 어디에 담는가?  (FormBody)
+
+//            3. 어떤 데이터를 담아서 서버에 보내는가? (파라미터)
+
+            val formData = FormBody.Builder()
+                .add("email", id)
+                .add("password", pw)
+                .build()
+
+
+//            1,2,3번의 정보 종합해서 => 서버에 접근하는 Request에 대한 총 정리.
+            val request = Request.Builder()
+                .url(urlString)
+                .post(formData)
+                .build()
+
+
+//            request에 적힌 정보대로 실제 서버 호출.
+//            서버 호출 (CALL) : 서버에 요청 => 클라이언트.
+
+            val client = OkHttpClient()
+
+            client.newCall(request)
+
+
+
+        }
+
+
+    }
+
 }
