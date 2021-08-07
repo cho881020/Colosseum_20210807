@@ -1,7 +1,9 @@
 package com.neppplus.colosseum_20210807
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 
 class MainActivity : BaseActivity() {
 
@@ -13,6 +15,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
 
     }
 
