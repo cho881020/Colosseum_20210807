@@ -1,8 +1,9 @@
 package com.neppplus.colosseum_20210807.utils
 
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import android.util.Log
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 
 class ServerUtil {
 
@@ -49,7 +50,28 @@ class ServerUtil {
 
             val client = OkHttpClient()
 
-            client.newCall(request)
+            client.newCall(request).enqueue( object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+//                    Fail - 실패 : 서버에 연결 자체를 실패한 경우.
+//                     인터넷 단선, 서버 터짐. 등등 아예 물리적 연결 실패.
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+//                    로그인 - 성공 / 비번 틀림 이던 상관 없이, 서버가 나한테 무슨 말이던 응답 (Response) 을 해준 경우.
+//                    서버가 나에게 보낸 메세지는 response 변수에 들어있다. => 그 중에 본문 (body) 내용에만 관심을 갖자.
+
+                    val bodyString = response.body!!.string()
+
+//                    bodyString은 한글이 깨져서 알아보기 어렵다.
+//                    JSONObject를 통해 변환 => 한글도 제대로 표기.
+                    val jsonObj = JSONObject(bodyString)
+
+                    Log.d("서버응답", jsonObj.toString())
+
+                }
+
+            } )
 
 
 
