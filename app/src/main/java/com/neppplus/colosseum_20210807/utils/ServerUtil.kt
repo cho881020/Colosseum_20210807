@@ -69,6 +69,21 @@ class ServerUtil {
 
                     Log.d("서버응답", jsonObj.toString())
 
+                    val code = jsonObj.getInt("code")
+                    Log.d("서버응답-code", code.toString())
+
+
+                    val message = jsonObj.getString("message")
+                    Log.d("서버응답-메세지", message)
+
+                    // 로그인한 사람의 닉네임 => jsonObj에서는 모른다.
+                    val dataObj = jsonObj.getJSONObject("data")
+
+                    val userObj = dataObj.getJSONObject("user")
+
+                    val nickName = userObj.getString("nick_name")
+                    Log.d("로그인한사람", nickName)
+
                 }
 
             } )
