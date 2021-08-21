@@ -18,6 +18,31 @@ class SignUpActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        nicknameCheckBtn.setOnClickListener {
+
+            val inputNick = nicknameEdt.text.toString()
+
+            ServerUtil.getRequestDuplCheck("NICK_NAME", inputNick, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(jsonObj: JSONObject) {
+
+                    runOnUiThread {
+                        val code = jsonObj.getInt("code")
+                        if (code == 200) {
+                            nicknameCheckResultTxt.text = "사용해도 좋은 닉네임입니다."
+                        }
+                        else {
+                            nicknameCheckResultTxt.text = "중복된 닉네임 입니다."
+                        }
+                    }
+
+
+
+                }
+
+            })
+
+        }
+
         emailCheckBtn.setOnClickListener {
 
 //            입력 id 만 추출
