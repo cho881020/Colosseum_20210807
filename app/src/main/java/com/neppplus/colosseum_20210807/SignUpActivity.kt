@@ -18,6 +18,17 @@ class SignUpActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        emailCheckBtn.setOnClickListener {
+
+//            입력 id 만 추출
+            val inputId = emailEdt.text.toString()
+
+
+//            서버에 중복여부 검사 => UI에 텍스트뷰에 반영.
+
+
+        }
+
         okBtn.setOnClickListener {
 
 //            입력한 id / pw / 닉네임 추출
