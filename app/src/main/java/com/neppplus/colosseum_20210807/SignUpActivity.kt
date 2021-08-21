@@ -26,7 +26,34 @@ class SignUpActivity : BaseActivity() {
 
 //            서버에 중복여부 검사 => UI에 텍스트뷰에 반영.
 
-            ServerUtil.getRequestDuplCheck("EMAIL", inputId, null)
+            ServerUtil.getRequestDuplCheck("EMAIL", inputId, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(jsonObj: JSONObject) {
+
+                    runOnUiThread {
+
+                        val code = jsonObj.getInt("code")
+
+                        if (code == 200) {
+
+//                        사용해도 좋다.
+
+                            emailCheckResultTxt.text = "사용해도 좋은 이메일입니다."
+
+                        }
+                        else {
+
+//                        사용하면 안된다.
+                            emailCheckResultTxt.text = "다른 이메일을 입력해주세요."
+
+                        }
+
+                    }
+
+
+
+                }
+
+            })
 
         }
 
