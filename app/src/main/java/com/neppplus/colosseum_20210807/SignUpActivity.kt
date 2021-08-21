@@ -3,7 +3,9 @@ package com.neppplus.colosseum_20210807
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.neppplus.colosseum_20210807.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import org.json.JSONObject
 
 class SignUpActivity : BaseActivity() {
 
@@ -34,7 +36,39 @@ class SignUpActivity : BaseActivity() {
 
 //            서버에 세가지 데이터 전달. => ServerUtil 관련 코드 실행
 
+            ServerUtil.putRequestSignUp(inputId, inputPw, inputNick, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(jsonObj: JSONObject) {
 
+//                    응답을 보고 파싱 -> 화면 처리 진행.
+
+                    val code = jsonObj.getInt("code")
+                    if (code == 200) {
+
+//                        가입한 사람 닉네임 + 환영합니다!
+
+                        val dataObj = jsonObj.getJSONObject("data")
+                        val userObj = dataObj.getJSONObject("user")
+                        val nickname = userObj.getString("nick_name")
+
+                        runOnUiThread {
+                            Toast.makeText(mContext, "${nickname}님 환영 합니다!", Toast.LENGTH_SHORT).show()
+                        }
+
+//                        회원가입 화면 종료
+                        finish()
+
+                    }
+                    else {
+                        val message = jsonObj.getString("message")
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+
+                }
+
+            })
 
         }
 
