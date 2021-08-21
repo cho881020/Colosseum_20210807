@@ -61,12 +61,34 @@
         android:layout_marginTop="10dp"
         android:text="사용할 닉네임" />
 
-    <EditText
-        android:id="@+id/nicknameEdt"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="한글도 입력 가능"
-        android:singleLine="true"/>
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/nicknameEdt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="한글도 입력 가능"
+            android:singleLine="true"/>
+
+        <Button
+            android:id="@+id/nicknameCheckBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="중복확인" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nicknameCheckResultTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임 중복검사를 해주세요."
+        android:layout_marginLeft="10dp"/>
+
 
     <Button
         android:id="@+id/okBtn"
