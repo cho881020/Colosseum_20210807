@@ -2,6 +2,7 @@ package com.neppplus.colosseum_20210807
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.neppplus.colosseum_20210807.utils.ContextUtil
 import com.neppplus.colosseum_20210807.utils.ServerUtil
@@ -18,6 +19,13 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        autoLoginCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+
+//            지금 체크된 값 (true / false) 을 ContextUtil을 이용해, 기기에 반영구 저장.
+            ContextUtil.setAutoLogin(mContext, isChecked)
+
+        }
 
         signUpBtn.setOnClickListener {
 
