@@ -32,7 +32,29 @@ class MainActivity : BaseActivity() {
 
 //                    화면입장에서, 로그인 시도에 대한 결과 처리 코드.
 
-                    Log.d("메인화면 로그인", jsonObj.toString())
+                    val code = jsonObj.getInt("code")
+
+//                    code : 200 => 모든 로직 성공적. (로그인 성공)
+//                    code : 400, 404, 403, 500 등등 200이 아닌숫자 => 다양한 이유로 로그인 실패.
+
+                    if (code == 200) {
+//                        임시 : 로그인한 사람의 닉네임을 토스트로 출력.
+
+                    }
+                    else {
+//                        로그인에 왜 실패했는지 사유를 토스트로 출력.
+
+                        val message = jsonObj.getString("message")
+
+//                        UI동작을 메인이 아니라, 백그라운드에서 돌리면 => 접근 차단, 앱 강제종료.
+
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+
+                        }
+
+
+                    }
 
                 }
 
