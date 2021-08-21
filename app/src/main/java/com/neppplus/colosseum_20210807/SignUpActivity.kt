@@ -26,6 +26,7 @@ class SignUpActivity : BaseActivity() {
 
 //            서버에 중복여부 검사 => UI에 텍스트뷰에 반영.
 
+            ServerUtil.getRequestDuplCheck("EMAIL", inputId, null)
 
         }
 

@@ -2,6 +2,7 @@ package com.neppplus.colosseum_20210807.utils
 
 import android.util.Log
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -116,6 +117,45 @@ class ServerUtil {
                     Log.d("서버응답", jsonObj.toString())
                     handler?.onResponse(jsonObj)
 
+                }
+
+            })
+
+        }
+
+//        중복확인 수행 함수.
+
+        fun getRequestDuplCheck( type: String, value: String,  handler: JsonResponseHandler? ) {
+
+//            어디로 갈것인가? + 어떤 데이터 (파라미터)를 들고 갈것인가? 한번에 같이 적힌다.
+
+            val url = "${HOST_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
+            url.addEncodedQueryParameter("type", type)
+            url.addEncodedQueryParameter("value", value)
+
+            val urlString = url.toString()
+
+//            정보 종합 + 실제 메쏘드 지정 (request)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .build()
+
+//            실제 호출 진행.
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
                 }
 
             })
