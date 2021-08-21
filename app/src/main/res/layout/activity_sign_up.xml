@@ -6,58 +6,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".MainActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@mipmap/ic_launcher" />
-
-    </LinearLayout>
+    tools:context=".SignUpActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="아이디" />
 
     <EditText
-        android:id="@+id/idEdt"
+        android:id="@+id/emailEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="이메일양식으로 입력" />
+        android:hint="이메일 양식으로 입력" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="비밀번호" />
+        android:text="비밀번호"
+        android:layout_marginTop="10dp"/>
 
     <EditText
-        android:id="@+id/pwEdt"
+        android:id="@+id/passwordEdt"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:hint="자유롭게 입력" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="비밀번호" />
+        android:layout_marginTop="10dp"
+        android:text="사용할 닉네임" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="한글도 입력 가능"
+        android:singleLine="true"/>
 
     <Button
-        android:id="@+id/signUpBtn"
+        android:id="@+id/okBtn"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="회원가입" />
-
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="로그인" />
+        android:text="가입하기" />
 
 </LinearLayout>

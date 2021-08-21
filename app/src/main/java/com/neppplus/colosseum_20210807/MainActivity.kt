@@ -20,6 +20,13 @@ class MainActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        signUpBtn.setOnClickListener {
+
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+
+        }
+
         loginBtn.setOnClickListener {
             val inputId = idEdt.text.toString()
             val inputPw = pwEdt.text.toString()
