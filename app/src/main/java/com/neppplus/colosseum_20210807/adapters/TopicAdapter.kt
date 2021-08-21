@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.neppplus.colosseum_20210807.R
 import com.neppplus.colosseum_20210807.datas.TopicData
 
@@ -21,6 +24,16 @@ class TopicAdapter(
             tempRow = mInflater.inflate(R.layout.topic_list_item, null)
         }
         val row = tempRow!!
+
+        val data = mList[position]
+
+        val topicImg = row.findViewById<ImageView>(R.id.topicImg)
+        val titleTxt = row.findViewById<TextView>(R.id.titleTxt)
+
+        titleTxt.text = data.title
+
+        Glide.with(mContext).load(data.imageURL).into(topicImg)
+
 
         return row
     }
