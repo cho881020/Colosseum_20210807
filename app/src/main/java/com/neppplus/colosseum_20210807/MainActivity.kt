@@ -37,7 +37,25 @@ class MainActivity : BaseActivity() {
         ServerUtil.getRequestMainInfo(mContext, object : ServerUtil.JsonResponseHandler {
             override fun onResponse(jsonObj: JSONObject) {
 
+                val dataObj = jsonObj.getJSONObject("data")
+                val topicsArr = dataObj.getJSONArray("topics")
 
+//                0번쨰 {} 부터 ~ 갯수 직전 { } 까지를 반복적으로 파싱.
+                for ( i  in  0 until topicsArr.length() ) {
+
+//                    i번째 (위치에 맞는) {  }를 따내고, 내용 분석
+                    val topicObj = topicsArr.getJSONObject(i)
+
+//                    TopicData 형태로 topicObj를 변환.
+                    val topicData = TopicData()
+                    topicData.id = topicObj.getInt("id")
+                    topicData.title = topicObj.getString("title")
+                    topicData.imageURL = topicObj.getString("img_url")
+
+//                    topicData 변수를 => mTopicList에 추가 등록.
+                    mTopicList.add( topicData )
+
+                }
 
             }
 
