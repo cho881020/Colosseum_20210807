@@ -2,7 +2,11 @@ package com.neppplus.colosseum_20210807
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import com.neppplus.colosseum_20210807.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.json.JSONObject
@@ -17,6 +21,30 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        emailEdt.addTextChangedListener {
+
+//            임시 : 이메일에 내용이 바뀌면 => 재검사 요구.
+//            emailCheckResultTxt.text = "이메일 중복검사를 해주세요."
+
+
+//            한글자 변경될때마다 => 다시 중복검사 수행.
+            val inputEmail = it.toString()
+
+            ServerUtil.getRequestDuplCheck("EMAIL", inputEmail, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(jsonObj: JSONObject) {
+
+                    val message = jsonObj.getString("message")
+
+                    runOnUiThread {
+                        emailCheckResultTxt.text = message
+                    }
+
+                }
+
+            })
+
+        }
 
         nicknameCheckBtn.setOnClickListener {
 
