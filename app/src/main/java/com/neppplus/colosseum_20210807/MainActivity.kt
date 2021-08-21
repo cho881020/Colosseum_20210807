@@ -40,6 +40,14 @@ class MainActivity : BaseActivity() {
                     if (code == 200) {
 //                        임시 : 로그인한 사람의 닉네임을 토스트로 출력.
 
+                        val dataObj = jsonObj.getJSONObject("data")
+                        val userObj = dataObj.getJSONObject("user")
+                        val nickname = userObj.getString("nick_name")
+
+                        runOnUiThread {
+                            Toast.makeText(mContext, "${nickname}님 환영합니다!", Toast.LENGTH_SHORT).show()
+                        }
+
                     }
                     else {
 //                        로그인에 왜 실패했는지 사유를 토스트로 출력.
