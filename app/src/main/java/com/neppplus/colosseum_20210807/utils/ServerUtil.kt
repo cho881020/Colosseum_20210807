@@ -1,5 +1,6 @@
 package com.neppplus.colosseum_20210807.utils
 
+import android.content.Context
 import android.util.Log
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -140,6 +141,45 @@ class ServerUtil {
             val request = Request.Builder()
                 .url(urlString)
                 .get()
+                .build()
+
+//            실제 호출 진행.
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+                }
+
+            })
+
+        }
+
+
+//        메인화면 (토론 주제)를 받아오는 함수.
+
+        fun getRequestMainInfo(context: Context,   handler: JsonResponseHandler? ) {
+
+            val url = "${HOST_URL}/v2/main_info".toHttpUrlOrNull()!!.newBuilder()
+//            url.addEncodedQueryParameter("type", type)
+//            url.addEncodedQueryParameter("value", value)
+
+            val urlString = url.toString()
+
+//            정보 종합 + 실제 메쏘드 지정 (request)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
                 .build()
 
 //            실제 호출 진행.
