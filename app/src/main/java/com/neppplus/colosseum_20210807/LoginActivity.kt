@@ -67,6 +67,13 @@ class LoginActivity : BaseActivity() {
 //                        ContextUtil 이용해 저장하자.
                         ContextUtil.setToken(mContext, token)
 
+
+//                        메인화면으로 이동
+                        val myIntent = Intent(mContext, MainActivity::class.java)
+                        startActivity(myIntent)
+//                        로그인화면 종료
+                        finish()
+
                     }
                     else {
 //                        로그인에 왜 실패했는지 사유를 토스트로 출력.
