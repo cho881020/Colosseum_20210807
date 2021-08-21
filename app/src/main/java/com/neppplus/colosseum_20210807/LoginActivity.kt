@@ -62,6 +62,11 @@ class LoginActivity : BaseActivity() {
                             Toast.makeText(mContext, "${nickname}님 환영합니다!", Toast.LENGTH_SHORT).show()
                         }
 
+//                        서버가 내려주는 토큰 저장.
+                        val token = dataObj.getString("token")
+//                        ContextUtil 이용해 저장하자.
+                        ContextUtil.setToken(mContext, token)
+
                     }
                     else {
 //                        로그인에 왜 실패했는지 사유를 토스트로 출력.
