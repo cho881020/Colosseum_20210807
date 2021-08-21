@@ -2,13 +2,16 @@ package com.neppplus.colosseum_20210807
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.neppplus.colosseum_20210807.adapters.TopicAdapter
 import com.neppplus.colosseum_20210807.datas.TopicData
 import com.neppplus.colosseum_20210807.utils.ServerUtil
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
 class MainActivity : BaseActivity() {
 
     val mTopicList = ArrayList<TopicData>()
+    lateinit var mTopicAdapter : TopicAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,9 @@ class MainActivity : BaseActivity() {
 //        그 받아낸 내용을 -> TopicData형태로 변환해서 -> mTopicList에 담아주자.
 
         getTopicListFromServer()
+
+        mTopicAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
+        topicListView.adapter = mTopicAdapter
 
     }
 
@@ -56,6 +62,12 @@ class MainActivity : BaseActivity() {
                     mTopicList.add( topicData )
 
                 }
+
+//                리스트뷰의 내용물 새로고침. => UI쓰레드에서 처리.
+                runOnUiThread {
+                    mTopicAdapter.notifyDataSetChanged()
+                }
+
 
             }
 
