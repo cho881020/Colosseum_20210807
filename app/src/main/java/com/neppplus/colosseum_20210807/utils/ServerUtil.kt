@@ -61,6 +61,7 @@ class ServerUtil {
 //                    로그인 - 성공 / 비번 틀림 이던 상관 없이, 서버가 나한테 무슨 말이던 응답 (Response) 을 해준 경우.
 //                    서버가 나에게 보낸 메세지는 response 변수에 들어있다. => 그 중에 본문 (body) 내용에만 관심을 갖자.
 
+//                    테스트 커밋용 주석
                     val bodyString = response.body!!.string()
 
 //                    bodyString은 한글이 깨져서 알아보기 어렵다.
