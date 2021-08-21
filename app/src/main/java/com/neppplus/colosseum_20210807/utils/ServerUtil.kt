@@ -23,7 +23,7 @@ class ServerUtil {
 
         fun postRequestLogin( id : String, pw : String ) {
 
-//            1. 어디로 가야하는가? (주소? => 호스트주소/기능주소)
+//            1. 어디로 가야하는가? (주소? => 호스트주소/기능주소-endpoint)
 
             val urlString = "${HOST_URL}/user"
 
@@ -61,7 +61,6 @@ class ServerUtil {
 //                    로그인 - 성공 / 비번 틀림 이던 상관 없이, 서버가 나한테 무슨 말이던 응답 (Response) 을 해준 경우.
 //                    서버가 나에게 보낸 메세지는 response 변수에 들어있다. => 그 중에 본문 (body) 내용에만 관심을 갖자.
 
-//                    테스트 커밋용 주석
                     val bodyString = response.body!!.string()
 
 //                    bodyString은 한글이 깨져서 알아보기 어렵다.
@@ -69,21 +68,6 @@ class ServerUtil {
                     val jsonObj = JSONObject(bodyString)
 
                     Log.d("서버응답", jsonObj.toString())
-
-                    val code = jsonObj.getInt("code")
-                    Log.d("서버응답-code", code.toString())
-
-
-                    val message = jsonObj.getString("message")
-                    Log.d("서버응답-메세지", message)
-
-                    // 로그인한 사람의 닉네임 => jsonObj에서는 모른다.
-                    val dataObj = jsonObj.getJSONObject("data")
-
-                    val userObj = dataObj.getJSONObject("user")
-
-                    val nickName = userObj.getString("nick_name")
-                    Log.d("로그인한사람", nickName)
 
                 }
 
