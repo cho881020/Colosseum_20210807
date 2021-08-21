@@ -89,6 +89,9 @@ class LoginActivity : BaseActivity() {
 
     override fun setValues() {
 
+//        화면에 보여지는 데이터들을 세팅하는 코드.
+        autoLoginCheckBox.isChecked = ContextUtil.getAutoLogin(mContext)
+
     }
 
 }
