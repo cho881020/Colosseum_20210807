@@ -7,6 +7,11 @@ import java.io.IOException
 
 class ServerUtil {
 
+//    서버유틸 클래스에 응답이 돌아오면 => 각자의 화면에게 넘겨주기 위한 인터페이스.
+    interface JsonResponseHandler {
+        fun onResponse( jsonObj : JSONObject )
+    }
+
     companion object {
 
 //        어떤 서버로 접속하는지 호스트 주소는 모두 동일함.
@@ -21,7 +26,7 @@ class ServerUtil {
 
 //        로그인 수행 함수.
 
-        fun postRequestLogin( id : String, pw : String ) {
+        fun postRequestLogin( id : String, pw : String, handler : JsonResponseHandler? ) {
 
 //            1. 어디로 가야하는가? (주소? => 호스트주소/기능주소-endpoint)
 
@@ -68,6 +73,9 @@ class ServerUtil {
                     val jsonObj = JSONObject(bodyString)
 
                     Log.d("서버응답", jsonObj.toString())
+
+//                    자세한 jsonObj에 대한 처리를 => 화면단에서 알려준 처리 방식대로 실행시키자.
+                    handler?.onResponse(jsonObj)
 
                 }
 
