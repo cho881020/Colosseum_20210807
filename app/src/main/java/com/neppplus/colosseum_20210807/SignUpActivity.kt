@@ -35,6 +35,7 @@ class SignUpActivity : BaseActivity() {
 //            서버에 세가지 데이터 전달. => ServerUtil 관련 코드 실행
 
 
+
         }
 
     }
