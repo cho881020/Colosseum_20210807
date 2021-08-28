@@ -35,6 +35,8 @@ class ReplyAdapter(
         val likeTxt = row.findViewById<TextView>(R.id.likeTxt)
         val dislikeTxt = row.findViewById<TextView>(R.id.dislikeTxt)
 
+        val selectedSideTxt = row.findViewById<TextView>(R.id.selectedSideTxt)
+
 
         contentTxt.text = data.content
 
@@ -43,6 +45,8 @@ class ReplyAdapter(
         dislikeTxt.text = "싫어요 ${data.dislikeCount}개"
 
         writeNicknameTxt.text = data.writerNickname
+
+        selectedSideTxt.text = "(${data.selectedSide})"
 
         return row
     }

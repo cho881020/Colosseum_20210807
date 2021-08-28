@@ -14,6 +14,9 @@ class ReplyData {
 //    작성자 닉네임만 String으로 저장.
     var writerNickname = ""
 
+//    선택된 진영을 selectedSide String으로 저장.
+    var selectedSide = ""
+
 
     companion object {
 
@@ -30,6 +33,11 @@ class ReplyData {
 //            작성자 닉네임 파싱.
             val userObj = jsonObj.getJSONObject("user")
             reply.writerNickname = userObj.getString("nick_name")
+
+//            선택된 진영이 뭔지도 파싱.
+            val selectedSideObj = jsonObj.getJSONObject("selected_side")
+
+            reply.selectedSide = selectedSideObj.getString("title")
 
             return reply
 
