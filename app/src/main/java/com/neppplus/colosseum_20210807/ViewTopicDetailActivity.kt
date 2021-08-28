@@ -62,6 +62,14 @@ class ViewTopicDetailActivity : BaseActivity() {
             titleTxt.text = mTopicData.title
             Glide.with(mContext).load(mTopicData.imageURL).into(topicImg)
 
+//            2개 진영에 대해서도 문구 반영
+            firstSideTitleTxt.text = mTopicData.sideList[0].title
+            firstSideVoteCountTxt.text = "${mTopicData.sideList[0].voteCount}표"
+
+            secondSideTitleTxt.text = mTopicData.sideList[1].title
+            secondSideVoteCountTxt.text = "${mTopicData.sideList[1].voteCount}표"
+
+
         }
 
     }
