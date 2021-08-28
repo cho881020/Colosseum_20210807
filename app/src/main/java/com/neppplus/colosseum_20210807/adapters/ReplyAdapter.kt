@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.neppplus.colosseum_20210807.R
 import com.neppplus.colosseum_20210807.datas.ReplyData
 import com.neppplus.colosseum_20210807.datas.TopicData
+import java.text.SimpleDateFormat
 
 class ReplyAdapter(
     val mContext : Context,
@@ -47,6 +48,12 @@ class ReplyAdapter(
         writeNicknameTxt.text = data.writerNickname
 
         selectedSideTxt.text = "(${data.selectedSide})"
+
+
+//        댓글에 있는 작성일시 (Calendar) 를 => 2021.08.05 16:35  양식의 String으로 변환.
+        val sdf = SimpleDateFormat("yyyy.MM.dd HH:mm")
+
+        createdAtTxt.text = sdf.format(  data.createdAt.time  )
 
         return row
     }
