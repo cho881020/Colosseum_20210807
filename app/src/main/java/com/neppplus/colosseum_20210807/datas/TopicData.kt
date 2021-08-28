@@ -9,6 +9,9 @@ class TopicData : Serializable {
     var title = "" // String이 온다는 명시.
     var imageURL = ""
 
+//    선택 가능한 진영 목록
+    val sideList = ArrayList<SideData>()
+
     companion object {
 
 //        JSONObject를 적당한 형태로 넣으면  -> 내용을 파싱해서 -> TopicData 객체로 돌려주는 함수.
