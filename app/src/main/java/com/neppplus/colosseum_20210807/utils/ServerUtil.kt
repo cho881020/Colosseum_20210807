@@ -203,6 +203,48 @@ class ServerUtil {
         }
 
 
+
+//        특정 토론 주제 상세 현황 (ex. 투표 현황) 받아오기.
+
+        fun getRequestTopicDetailById(context: Context, topicId: Int,  handler: JsonResponseHandler? ) {
+
+            val url = "${HOST_URL}/topic".toHttpUrlOrNull()!!.newBuilder()
+            url.addPathSegment(topicId.toString())
+//            url.addEncodedQueryParameter("type", type)
+//            url.addEncodedQueryParameter("value", value)
+
+            val urlString = url.toString()
+            Log.d("완성된URL", urlString)
+
+//            정보 종합 + 실제 메쏘드 지정 (request)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+//            실제 호출 진행.
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+                }
+
+            })
+
+        }
+
+
     }
 
 }
