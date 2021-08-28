@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.neppplus.colosseum_20210807.datas.TopicData
 import com.neppplus.colosseum_20210807.utils.ServerUtil
@@ -30,6 +31,8 @@ class ViewTopicDetailActivity : BaseActivity() {
             override fun onClick(v: View?) {
 
 //                클릭되면 실행할 코드
+
+                Toast.makeText(mContext, v!!.tag.toString(), Toast.LENGTH_SHORT).show()
 
             }
 
@@ -87,6 +90,10 @@ class ViewTopicDetailActivity : BaseActivity() {
 
             secondSideTitleTxt.text = mTopicData.sideList[1].title
             secondSideVoteCountTxt.text = "${mTopicData.sideList[1].voteCount}표"
+
+//            2개진영의 버튼에 -> 태그를 설정. -> 각 진영의 id값을 투표버튼의 태그로.
+            firstSideVoteBtn.tag = mTopicData.sideList[0].id
+            secondVoteBtn.tag = mTopicData.sideList[1].id
 
 
         }

@@ -70,6 +70,7 @@
                         android:id="@+id/firstSideVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:tag="메모1"
                         android:text="투표하기" />
 
 
@@ -109,6 +110,7 @@
                         android:id="@+id/secondVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:tag="둘째버튼"
                         android:text="투표하기" />
 
 
