@@ -245,6 +245,58 @@ class ServerUtil {
         }
 
 
+//        투표 참가 함수.
+
+        fun postRequestVote(context: Context, sideId: Int, handler : JsonResponseHandler? ) {
+
+            val urlString = "${HOST_URL}/topic_vote"
+
+            val formData = FormBody.Builder()
+                .add("side_id", sideId.toString())
+                .build()
+
+            val request = Request.Builder()
+                .url(urlString)
+                .post(formData)
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+
+//            request에 적힌 정보대로 실제 서버 호출.
+//            서버 호출 (CALL) : 서버에 요청 => 클라이언트.
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue( object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+//                    Fail - 실패 : 서버에 연결 자체를 실패한 경우.
+//                     인터넷 단선, 서버 터짐. 등등 아예 물리적 연결 실패.
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+//                    로그인 - 성공 / 비번 틀림 이던 상관 없이, 서버가 나한테 무슨 말이던 응답 (Response) 을 해준 경우.
+//                    서버가 나에게 보낸 메세지는 response 변수에 들어있다. => 그 중에 본문 (body) 내용에만 관심을 갖자.
+
+                    val bodyString = response.body!!.string()
+
+//                    bodyString은 한글이 깨져서 알아보기 어렵다.
+//                    JSONObject를 통해 변환 => 한글도 제대로 표기.
+                    val jsonObj = JSONObject(bodyString)
+
+                    Log.d("서버응답", jsonObj.toString())
+
+//                    자세한 jsonObj에 대한 처리를 => 화면단에서 알려준 처리 방식대로 실행시키자.
+                    handler?.onResponse(jsonObj)
+
+                }
+
+            } )
+
+
+
+        }
+
     }
 
 }

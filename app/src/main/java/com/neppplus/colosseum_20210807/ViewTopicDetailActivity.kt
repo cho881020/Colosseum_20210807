@@ -31,8 +31,37 @@ class ViewTopicDetailActivity : BaseActivity() {
             override fun onClick(v: View?) {
 
 //                클릭되면 실행할 코드
+//                서버에 투표 요청 => 응답 돌아오면 => 화면 새로고침
 
-                Toast.makeText(mContext, v!!.tag.toString(), Toast.LENGTH_SHORT).show()
+//                몇번 진영? 태그에서 Int로 변환.
+                val sideId =  v!!.tag.toString().toInt()
+
+                ServerUtil.postRequestVote(mContext, sideId, object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(jsonObj: JSONObject) {
+
+                        val code = jsonObj.getInt("code")
+
+                        if (code == 200) {
+
+//                            투표에 성공 케이스. => 서버에서 새로 받아와서, 화면에 반영. (득표수 변경)
+
+//                            밑의 함수에 서버에서 데이터 수신 + 화면에 새로 반영 모두 작성되어있다.
+                            getTopicDetailFromSever()
+
+                        }
+                        else {
+                            val message = jsonObj.getString("message")
+
+                            runOnUiThread {
+                                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+
+                    }
+
+                })
+
 
             }
 
