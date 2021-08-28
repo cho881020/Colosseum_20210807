@@ -28,6 +28,21 @@ class TopicData : Serializable {
             resultTopicData.imageURL = jsonObj.getString("img_url")
 
 
+//            결과로 나갈 토픽 데이터에, 진영 목록을 파싱해서 -> 토픽데이터의 sideList에 담아주자.
+
+            val sidesArr = jsonObj.getJSONArray("sides")
+
+            for (i  in 0 until  sidesArr.length()) {
+
+//                진영목록을 파싱 -> 토론주제의 진영목록에 추가.
+                val sideObj = sidesArr.getJSONObject(i)
+
+                val sideData = SideData.getSideDataFromJson(sideObj)
+
+                resultTopicData.sideList.add(sideData)
+
+            }
+
 //            최종 결과로 선정
             return resultTopicData
         }
