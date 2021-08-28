@@ -9,7 +9,6 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        tools:visibility="gone"
         android:layout_height="250dp">
 
         <ImageView
@@ -18,6 +17,21 @@
             android:src="@mipmap/ic_launcher"
             android:scaleType="centerCrop"
             android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="#88000000" />
+
+
+        <TextView
+            android:id="@+id/titleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="토론 주제 자리"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
 
 
     </FrameLayout>

@@ -25,7 +25,11 @@ class MainActivity : BaseActivity() {
 
         topicListView.setOnItemClickListener { parent, view, position, id ->
 
+//            클릭된 주제가 뭔지?
+            val clickedTopic = mTopicList[position]
+
             val myIntent = Intent(mContext, ViewTopicDetailActivity::class.java)
+            myIntent.putExtra("topic", clickedTopic)
             startActivity(myIntent)
 
         }
