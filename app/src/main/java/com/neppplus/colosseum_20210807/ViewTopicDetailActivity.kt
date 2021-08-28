@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.neppplus.colosseum_20210807.adapters.ReplyAdapter
+import com.neppplus.colosseum_20210807.datas.ReplyData
 import com.neppplus.colosseum_20210807.datas.TopicData
 import com.neppplus.colosseum_20210807.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
@@ -14,6 +16,9 @@ import org.json.JSONObject
 class ViewTopicDetailActivity : BaseActivity() {
 
     lateinit var mTopicData : TopicData
+
+    val mReplyList = ArrayList<ReplyData>()
+    lateinit var mReplyAdapter : ReplyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +86,9 @@ class ViewTopicDetailActivity : BaseActivity() {
         titleTxt.text = mTopicData.title
         Glide.with(mContext).load(mTopicData.imageURL).into(topicImg)
 
+        mReplyAdapter = ReplyAdapter(mContext, R.layout.reply_list_item, mReplyList)
+        replyListView.adapter = mReplyAdapter
+
         getTopicDetailFromSever()
     }
 
@@ -95,6 +103,16 @@ class ViewTopicDetailActivity : BaseActivity() {
 //                새로 받아온 topic정보를 => mTopicData에 새로 대입. (갱신)
 
                 mTopicData = TopicData.getTopicDataFromJson(topicObj)
+
+//                댓글 목록도 같이 내려줌. => 파싱해서, 목록에 담아주자.
+
+                val repliesArr =  topicObj.getJSONArray("replies")
+
+                for  ( i   in 0 until  repliesArr.length()) {
+
+                    mReplyList.add( ReplyData.getReplyDataFromJson(  repliesArr.getJSONObject(i)  ) )
+
+                }
 
 //                변경된 mTopicData에 있는 정보들을 => 화면에 반영.
                 refreshTopicDataToUI()
@@ -124,6 +142,9 @@ class ViewTopicDetailActivity : BaseActivity() {
             firstSideVoteBtn.tag = mTopicData.sideList[0].id
             secondVoteBtn.tag = mTopicData.sideList[1].id
 
+
+//            댓글 목록 어댑터 새로고침
+            mReplyAdapter.notifyDataSetChanged()
 
         }
 
