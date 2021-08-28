@@ -11,6 +11,9 @@ class ReplyData {
     var dislikeCount = 0
     var replyCount = 0
 
+//    작성자 닉네임만 String으로 저장.
+    var writerNickname = ""
+
 
     companion object {
 
@@ -23,6 +26,10 @@ class ReplyData {
             reply.likeCount = jsonObj.getInt("like_count")
             reply.dislikeCount = jsonObj.getInt("dislike_count")
             reply.replyCount = jsonObj.getInt("reply_count")
+
+//            작성자 닉네임 파싱.
+            val userObj = jsonObj.getJSONObject("user")
+            reply.writerNickname = userObj.getString("nick_name")
 
             return reply
 
