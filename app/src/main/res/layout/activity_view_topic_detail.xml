@@ -67,6 +67,7 @@
                         android:textColor="@color/white" />
 
                     <Button
+                        android:id="@+id/firstSideVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="투표하기" />
@@ -105,6 +106,7 @@
                         android:textColor="@color/white" />
 
                     <Button
+                        android:id="@+id/secondVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="투표하기" />

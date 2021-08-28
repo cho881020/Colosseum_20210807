@@ -2,6 +2,8 @@ package com.neppplus.colosseum_20210807
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import com.bumptech.glide.Glide
 import com.neppplus.colosseum_20210807.datas.TopicData
 import com.neppplus.colosseum_20210807.utils.ServerUtil
@@ -20,6 +22,23 @@ class ViewTopicDetailActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+//        투표 버튼 이벤트 처리.
+//        첫번째 진영, 두번째 진영 버튼 모두 -> 해야하는 일은 같다. (서버에 투표 전달) -> 코드도 같은 내용.
+
+        val onClickListener = object : View.OnClickListener {
+            override fun onClick(v: View?) {
+
+//                클릭되면 실행할 코드
+
+            }
+
+        }
+
+        firstSideVoteBtn.setOnClickListener(onClickListener)
+        secondVoteBtn.setOnClickListener(onClickListener)
+
+
 
     }
 
