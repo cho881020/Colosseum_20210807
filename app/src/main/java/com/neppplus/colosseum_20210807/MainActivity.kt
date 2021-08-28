@@ -1,10 +1,13 @@
 package com.neppplus.colosseum_20210807
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.neppplus.colosseum_20210807.adapters.TopicAdapter
 import com.neppplus.colosseum_20210807.datas.TopicData
+import com.neppplus.colosseum_20210807.utils.ContextUtil
 import com.neppplus.colosseum_20210807.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -22,6 +25,36 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        logoutBtn.setOnClickListener {
+
+//            로그인? id/pw을 서버에 보내서 -> 회원이 맞는 검사 -> 성공했다면 토큰을 받는다. -> 기기에 저장.
+//            로그아웃? 저장되어있는 토큰을 날려주고 -> 다시 로그인 화면으로 이동.
+
+
+//            메세지만 "정말 로그아웃 하시겠습니까?" 확인 -> 진짜 로그아웃 처리, 취소 -> 아무일도 없게.
+
+            val alert = AlertDialog.Builder(mContext)
+//            alert.setTitle("로그아웃 확인")
+            alert.setMessage("정말 로그아웃 하시겠습니까?")
+            alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+//                진짜 로그아웃 처리
+
+                ContextUtil.setToken(mContext, "")
+
+                val myIntent = Intent(mContext, LoginActivity::class.java)
+                startActivity(myIntent)
+                finish()
+
+            })
+            alert.setNegativeButton("취소", null)
+
+            alert.show()
+
+
+
+
+        }
 
         topicListView.setOnItemClickListener { parent, view, position, id ->
 
